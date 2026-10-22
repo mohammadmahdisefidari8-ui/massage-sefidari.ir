@@ -1,0 +1,204 @@
+/* =========================================================
+   finder.css — «کدام ماساژ مناسب شماست؟» + نقشه بدن
+   ========================================================= */
+
+.finder {
+  display: grid;
+  grid-template-columns: 1.15fr 0.7fr 1.15fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  padding: clamp(20px, 3.5vw, 40px);
+  border-radius: 28px;
+}
+
+.finder__step {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+}
+.finder__step b {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 0.95rem;
+  color: #1a1305;
+  border-radius: 50%;
+  background: var(--grad-gold);
+}
+.finder__step small {
+  width: 100%;
+  padding-inline-start: 40px;
+  margin-top: -6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-mute);
+}
+.finder__controls .chips + .finder__step {
+  margin-top: 26px;
+}
+
+/* ---------- چیپ‌های انتخاب ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.choice {
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  transition: color 0.3s, border-color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+.choice:hover {
+  color: var(--text);
+  border-color: var(--gold);
+}
+.choice:active {
+  transform: scale(0.97);
+}
+.choice[aria-checked="true"],
+.choice[aria-pressed="true"] {
+  color: #1a1305;
+  border-color: transparent;
+  background: var(--grad-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ---------- نقشه بدن ---------- */
+.finder__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.bodymap {
+  width: min(100%, 190px);
+  height: auto;
+  overflow: visible;
+}
+.bodymap .zone {
+  fill: rgba(28, 35, 64, 0.05);
+  stroke: rgba(184, 134, 30, 0.55);
+  stroke-width: 1.5;
+  cursor: pointer;
+  outline: none;
+  transition: fill 0.3s, stroke 0.3s, filter 0.3s;
+}
+.bodymap .zone:hover,
+.bodymap .zone:focus-visible {
+  fill: rgba(18, 184, 158, 0.25);
+  stroke: var(--teal);
+}
+.bodymap .zone.is-on {
+  fill: rgba(240, 190, 70, 0.6);
+  stroke: var(--gold-3);
+  filter: drop-shadow(0 0 8px rgba(217, 168, 48, 0.6));
+}
+.bodymap .spine {
+  fill: none;
+  stroke: rgba(184, 134, 30, 0.45);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 5;
+  pointer-events: none;
+}
+.finder__hint {
+  font-size: 12.5px;
+  color: var(--text-mute);
+  text-align: center;
+}
+
+/* ---------- نتیجه ---------- */
+.finder__result {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 160px;
+}
+.finder__empty {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 200px;
+  padding: 24px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--text-mute);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+.finder__empty .icon {
+  width: 34px;
+  height: 34px;
+  color: var(--gold-3);
+  opacity: 0.8;
+}
+.rcard {
+  --h: 40;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 20px 18px;
+  border: 1px solid hsla(var(--h), 70%, 50%, 0.4);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(320px 160px at 100% 0%, hsla(var(--h), 90%, 60%, 0.2), transparent 70%),
+    rgba(255, 255, 255, 0.88);
+  animation: fadeUp 0.55s var(--ease) both;
+  animation-delay: var(--i, 0s);
+}
+.rcard__tag {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: hsl(var(--h), 70%, 34%);
+  border-radius: 999px;
+  background: hsla(var(--h), 90%, 60%, 0.14);
+}
+.rcard h4 {
+  font-size: 1.2rem;
+}
+.rcard p {
+  margin-top: 4px;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+.rcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.rcard__actions .btn {
+  min-height: 44px;
+  padding: 10px 20px;
+  font-size: 14.5px;
+}
+
+/* ---------- نقطه‌های کاروسل (فقط موبایل) ---------- */
+.dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(28, 35, 64, 0.2);
+  transition: width 0.35s var(--ease), background 0.35s;
+}
+.dots i.is-on {
+  width: 26px;
+  background: var(--gold-3);
+}

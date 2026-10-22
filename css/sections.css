@@ -1,0 +1,402 @@
+/* =========================================================
+   sections.css — بخش‌های تازه (نظرات، نکات، آدرس) و جلوه‌های حرکتی
+   ========================================================= */
+
+/* ---------- جلوه‌های حرکتی عمومی ---------- */
+
+/* پارالاکس تصاویر (متغیر --py را motion.js می‌نویسد) */
+[data-parallax] {
+  transform: translate3d(0, var(--py, 0px), 0);
+  will-change: transform;
+}
+
+/* تیتر بخش‌ها: ورود با محو شدن تاری */
+.section__title.reveal {
+  filter: blur(8px);
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    translate 0.9s var(--ease) var(--d, 0s),
+    filter 0.9s var(--ease) var(--d, 0s);
+}
+.section__title.reveal.is-in {
+  filter: blur(0);
+}
+
+/* خط طلایی زیر برچسب بخش، هنگام ورود کشیده می‌شود */
+.eyebrow.reveal::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin: 8px auto 0;
+  width: 0;
+  background: var(--grad-gold);
+  border-radius: 2px;
+  transition: width 0.9s var(--ease) 0.25s;
+}
+.eyebrow.reveal.is-in::after {
+  width: 36px;
+}
+
+/* موج کلیک روی دکمه */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scale(0);
+  animation: rippleOut 0.7s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes rippleOut {
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* نور دنبال‌کننده موس روی کارت‌ها (فقط وقتی موس هست) */
+.spot {
+  position: relative;
+}
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(240, 190, 70, 0.22), transparent 65%);
+  transition: opacity 0.35s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ---------- نظرات مراجعین ---------- */
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-bottom: 28px;
+}
+.review {
+  padding: 28px 26px 24px;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+.review__quote {
+  position: absolute;
+  bottom: -18px;
+  inset-inline-end: 18px;
+  font-size: 90px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.22;
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+.stars {
+  display: inline-flex;
+  gap: 3px;
+}
+.star {
+  width: 18px;
+  height: 18px;
+  background: rgba(28, 35, 64, 0.14);
+  clip-path: polygon(50% 2%, 63% 36%, 98% 38%, 70% 60%, 80% 95%, 50% 75%, 20% 95%, 30% 60%, 2% 38%, 37% 36%);
+}
+.star.is-on {
+  background: var(--grad-gold);
+}
+.review blockquote {
+  font-size: 16px;
+  line-height: 2;
+  color: var(--text);
+  flex: 1;
+}
+.review figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review figcaption strong {
+  display: block;
+  font-size: 15px;
+}
+.review figcaption small {
+  color: var(--text-mute);
+  font-size: 13px;
+}
+.review__avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 800;
+  color: #2a1d03;
+  background: var(--grad-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.review-invite {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 30px 34px;
+  border-radius: var(--radius);
+}
+.review-invite h3 {
+  font-size: 21px;
+  margin-bottom: 6px;
+}
+.review-invite p {
+  color: var(--text-dim);
+  line-height: 1.9;
+  font-size: 15.5px;
+}
+.review-invite > div:nth-child(2) {
+  flex: 1;
+}
+.review-invite__icon {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffe4ef, #fff3d6);
+  color: var(--rose);
+  box-shadow: 0 12px 28px -14px rgba(224, 69, 122, 0.5);
+}
+.review-invite__icon .icon {
+  width: 28px;
+  height: 28px;
+}
+.review-invite__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ---------- نکات سلامت ---------- */
+.tips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+.tip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 28px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  outline-offset: 3px;
+}
+.tip__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: var(--teal-ink);
+  background: linear-gradient(135deg, #dcf7f0, #f1fbf8);
+  box-shadow: 0 10px 24px -14px rgba(18, 184, 158, 0.6);
+}
+.tip__icon .icon {
+  width: 24px;
+  height: 24px;
+}
+.tip__meta {
+  font-size: 13px;
+  color: var(--text-mute);
+}
+.tip h3 {
+  font-size: 19px;
+  line-height: 1.7;
+}
+.tip p {
+  color: var(--text-dim);
+  line-height: 1.95;
+  font-size: 15.5px;
+}
+.tip__more {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--gold-ink);
+  font-size: 15px;
+}
+.tip__more .icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease);
+}
+.tip:hover .tip__more .icon {
+  transform: translateX(-5px);
+}
+
+/* ---------- آدرس و ساعت کاری ---------- */
+.visit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.visit-card {
+  padding: 30px 28px;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.visit-card__icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 17px;
+  background: var(--grad-gold);
+  color: #2a1d03;
+  box-shadow: var(--shadow-gold);
+}
+.visit-card__icon .icon {
+  width: 24px;
+  height: 24px;
+}
+.visit-card h3 {
+  font-size: 20px;
+}
+.visit-card p {
+  color: var(--text-dim);
+  line-height: 1.95;
+  font-size: 15.5px;
+}
+.visit-card .btn {
+  margin-top: auto;
+}
+.hours {
+  list-style: none;
+  width: 100%;
+}
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 15px;
+}
+.hours li b {
+  color: var(--gold-ink);
+}
+
+/* ---------- ریسپانسیو بخش‌های تازه ---------- */
+@media (max-width: 1180px) {
+  .nav a {
+    padding: 8px 10px;
+    font-size: 14.5px;
+  }
+}
+@media (max-width: 1080px) {
+  .reviews {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .visit {
+    grid-template-columns: 1fr;
+  }
+  .visit-card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .visit-card h3 {
+    flex: 1;
+  }
+  .visit-card p,
+  .hours {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 900px) {
+  .review-invite {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 26px 22px;
+  }
+  .review-invite__actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .review-invite__actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+    min-height: 52px;
+  }
+}
+@media (max-width: 700px) {
+  .reviews {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: 14px;
+    scroll-padding-inline: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .reviews::-webkit-scrollbar {
+    display: none;
+  }
+  .review {
+    flex: 0 0 84%;
+    scroll-snap-align: center;
+  }
+  .tips {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .tip {
+    padding: 22px 20px 20px;
+  }
+  .tip h3 {
+    font-size: 17.5px;
+  }
+  .visit-card {
+    padding: 24px 20px;
+  }
+}
+
+/* کاهش حرکت */
+@media (prefers-reduced-motion: reduce) {
+  .section__title.reveal {
+    filter: none;
+  }
+  [data-parallax] {
+    transform: none;
+    will-change: auto;
+  }
+  .ripple {
+    display: none;
+  }
+}
+
+.review__title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height: 1.5;
+}

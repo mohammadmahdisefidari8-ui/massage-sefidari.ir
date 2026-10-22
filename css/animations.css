@@ -1,0 +1,119 @@
+/* =========================================================
+   animations.css — انیمیشن‌ها و افکت‌های ورود
+   ========================================================= */
+
+/* ---------- Reveal on scroll (با translate تا با transform تیلت تداخل نکند) ---------- */
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease) var(--d, 0s), translate 0.9s var(--ease) var(--d, 0s);
+}
+.reveal {
+  translate: 0 40px;
+}
+.reveal-left {
+  translate: -60px 0;
+}
+.reveal-right {
+  translate: 60px 0;
+}
+.reveal.is-in,
+.reveal-left.is-in,
+.reveal-right.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* عناصری که هم reveal دارند هم tilt: ترنزیشن ترکیبی */
+[data-tilt].reveal,
+[data-tilt].reveal-left,
+[data-tilt].reveal-right {
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    translate 0.9s var(--ease) var(--d, 0s),
+    transform 0.25s ease-out,
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+[data-tilt].is-tilting.reveal {
+  transition:
+    opacity 0.9s var(--ease) var(--d, 0s),
+    translate 0.9s var(--ease) var(--d, 0s),
+    transform 0.08s linear,
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes stonePulse {
+  0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.85; }
+  50% { transform: translateY(-8px) scaleX(1.06); opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floaty {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -14px; }
+}
+
+@keyframes wheel {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+
+@keyframes btnShine {
+  0% { background-position: 150% 0, 0 0; }
+  45%, 100% { background-position: -60% 0, 0 0; }
+}
+
+@keyframes certShine {
+  0% { left: -60%; }
+  50%, 100% { left: 140%; }
+}
+
+@keyframes ring {
+  0% { box-shadow: 0 12px 28px -8px rgba(60, 48, 20, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.55); }
+  70%, 100% { box-shadow: 0 12px 28px -8px rgba(60, 48, 20, 0.45), 0 0 0 20px rgba(37, 211, 102, 0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ورود کارت‌های ماساژ هنگام فیلتر */
+.mcard.is-entering {
+  animation: fadeUp 0.6s var(--ease) both;
+  animation-delay: var(--i, 0s);
+}
+
+/* کاهش حرکت برای کاربرانی که ترجیح می‌دهند */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .hero__title .line > span {
+    transform: none;
+  }
+}
