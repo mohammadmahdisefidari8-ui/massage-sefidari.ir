@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-DOMAIN.ir/sitemap.xml
+Sitemap: https://mohammadmahdisefidari8-ui.github.io/massage-sefidari.ir//sitemap.xml
